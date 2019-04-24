@@ -8,14 +8,16 @@
 ?>
 <?php
  if(isset($_POST['add_product'])){
-   $req_fields = array('product-title','product-categorie','product-quantity','buying-price', 'saleing-price' );
+   $req_fields = array('product-title','product-categorie','product-quantity','buying-price', 'product-mark', 'product-location', 'product-state');
    validate_fields($req_fields);
    if(empty($errors)){
      $p_name  = remove_junk($db->escape($_POST['product-title']));
      $p_cat   = remove_junk($db->escape($_POST['product-categorie']));
      $p_qty   = remove_junk($db->escape($_POST['product-quantity']));
      $p_buy   = remove_junk($db->escape($_POST['buying-price']));
-     $p_sale  = remove_junk($db->escape($_POST['saleing-price']));
+     $p_mrk   = remove_junk($db->escape($_POST['product-mark']));     
+     $p_ltn   = remove_junk($db->escape($_POST['product-location']));
+     $p_ste   = remove_junk($db->escape($_POST['product-state']));
      if (is_null($_POST['product-photo']) || $_POST['product-photo'] === "") {
        $media_id = '0';
      } else {
@@ -23,9 +25,9 @@
      }
      $date    = make_date();
      $query  = "INSERT INTO products (";
-     $query .=" name,quantity,buy_price,sale_price,categorie_id,media_id,date";
+     $query .=" name,quantity,buy_price,sale_price,categorie_id,media_id,date,product_mark,product_location,product_state";
      $query .=") VALUES (";
-     $query .=" '{$p_name}', '{$p_qty}', '{$p_buy}', '{$p_sale}', '{$p_cat}', '{$media_id}', '{$date}'";
+     $query .=" '{$p_name}', '{$p_qty}', '{$p_buy}', '0', '{$p_cat}', '{$media_id}', '{$date}', '{$p_mrk}', '{$p_ltn}', '{$p_ste}'";
      $query .=")";
      $query .=" ON DUPLICATE KEY UPDATE name='{$p_name}'";
      if($db->query($query)){
@@ -77,7 +79,7 @@
                       <span class="input-group-addon">
                        <i class="glyphicon glyphicon-th-large"></i>
                       </span>
-                      <input type="text" class="form-control" name="product-title" placeholder="Marca">
+                      <input type="text" class="form-control" name="product-mark" placeholder="Marca">
                     </div>
                   </div>
                 </div>
@@ -89,7 +91,7 @@
                       <span class="input-group-addon">
                        <i class="glyphicon glyphicon-th-large"></i>
                       </span>
-                      <input type="text" class="form-control" name="product-title" placeholder="Ubicación">
+                      <input type="text" class="form-control" name="product-location" placeholder="Ubicación">
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -97,7 +99,7 @@
                       <span class="input-group-addon">
                        <i class="glyphicon glyphicon-th-large"></i>
                       </span>
-                      <input type="text" class="form-control" name="product-title" placeholder="Estado">
+                      <input type="text" class="form-control" name="product-state" placeholder="Estado">
                     </div>
                   </div>
                 </div>
