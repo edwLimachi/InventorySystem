@@ -2,7 +2,9 @@
   $page_title = 'Lista de imagenes';
   require_once('includes/load.php');
   // Checkin What level user has permission to view this page
-  page_require_level(2);
+  // page_require_level(2);
+  page_require_level(3);
+  
 ?>
 <?php $media_files = find_all('media');?>
 <?php

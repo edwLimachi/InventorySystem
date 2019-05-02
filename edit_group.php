@@ -2,7 +2,8 @@
   $page_title = 'Editar Grupo';
   require_once('includes/load.php');
   // Checkin What level user has permission to view this page
-   page_require_level(1);
+   // page_require_level(1);
+  page_require_level(2);
 ?>
 <?php
   $e_group = find_by_id('user_groups',(int)$_GET['id']);

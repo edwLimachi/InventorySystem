@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-04-2019 a las 17:59:49
+-- Tiempo de generación: 30-04-2019 a las 14:46:41
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.5.34
 
@@ -62,7 +62,9 @@ CREATE TABLE `media` (
 --
 
 INSERT INTO `media` (`id`, `file_name`, `file_type`) VALUES
-(1, 'filter.jpg', 'image/jpeg');
+(1, 'filter.jpg', 'image/jpeg'),
+(2, 'auricular.jpg', 'image/jpeg'),
+(3, 'filter - copia.jpg', 'image/jpeg');
 
 -- --------------------------------------------------------
 
@@ -80,9 +82,20 @@ CREATE TABLE `products` (
   `media_id` int(11) DEFAULT '0',
   `date` datetime NOT NULL,
   `mark` varchar(50) DEFAULT NULL,
-  `ubicacion` varchar(50) DEFAULT NULL,
-  `estado` varchar(50) DEFAULT NULL
+  `location` varchar(50) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `quantity`, `buy_price`, `sale_price`, `categorie_id`, `media_id`, `date`, `mark`, `location`, `state`) VALUES
+(1, 'e', '0', '1.00', '1.00', 3, 1, '0000-00-00 00:00:00', '1', '1', '1'),
+(4, 'b', '2', '1.00', '1.00', 4, 0, '2019-04-01 00:00:00', '1', '1', '1'),
+(5, 'w', '1', '1.00', '0.00', 5, 0, '2019-04-30 15:19:50', 'w', 'w', 'w'),
+(7, 'd', '1', '1.00', '0.00', 7, 1, '2019-04-30 15:37:25', 'd', 'd', 'd'),
+(8, 'a', '1', '1.00', '0.00', 7, 2, '2019-04-30 15:40:43', 'a', 'a', 'a');
 
 -- --------------------------------------------------------
 
@@ -97,6 +110,13 @@ CREATE TABLE `sales` (
   `price` decimal(25,2) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `sales`
+--
+
+INSERT INTO `sales` (`id`, `product_id`, `qty`, `price`, `date`) VALUES
+(1, 1, 1, '1.00', '2019-04-30');
 
 -- --------------------------------------------------------
 
@@ -120,7 +140,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `user_level`, `image`, `status`, `last_login`) VALUES
-(1, 'Admin Users', 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'pzg9wa7o1.jpg', 1, '2019-04-22 17:38:12'),
+(1, 'Admin Users', 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'logo.jpeg', 1, '2019-04-30 15:18:09'),
 (2, 'Special User', 'special', 'ba36b97a41e7faf742ab09bf88405ac04f99599a', 2, 'no_image.jpg', 1, '2017-06-16 07:11:26'),
 (3, 'Default User', 'user', '12dea96fec20593566ab75692c9949596833adc9', 3, 'no_image.jpg', 1, '2017-06-16 07:11:03'),
 (10, 'willy condiri', 'will123', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 3, 'no_image.jpg', 1, '2019-04-22 17:40:20');
@@ -209,17 +229,17 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de la tabla `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --

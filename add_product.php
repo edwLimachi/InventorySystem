@@ -5,6 +5,7 @@
   page_require_level(2);
   $all_categories = find_all('categories');
   $all_photo = find_all('media');
+  
 ?>
 <?php
  if(isset($_POST['add_product'])){
@@ -25,17 +26,17 @@
      }
      $date    = make_date();
      $query  = "INSERT INTO products (";
-     $query .=" name,quantity,buy_price,sale_price,categorie_id,media_id,date,product_mark,product_location,product_state";
+     $query .=" name,quantity,buy_price,sale_price,categorie_id,media_id,date,mark,location,state";
      $query .=") VALUES (";
      $query .=" '{$p_name}', '{$p_qty}', '{$p_buy}', '0', '{$p_cat}', '{$media_id}', '{$date}', '{$p_mrk}', '{$p_ltn}', '{$p_ste}'";
      $query .=")";
      $query .=" ON DUPLICATE KEY UPDATE name='{$p_name}'";
      if($db->query($query)){
        $session->msg('s',"Producto agregado exitosamente. ");
-       redirect('add_product.php', false);
+       redirect('product.php', false);
      } else {
        $session->msg('d',' Lo siento, registro falló.');
-       redirect('product.php', false);
+       redirect('add_product.php', false);
      }
 
    } else{
