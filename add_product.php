@@ -2,9 +2,9 @@
   $page_title = 'Agregar producto';
   require_once('includes/load.php');
   // Checkin What level user has permission to view this page
-  page_require_level(2);
+  page_require_level(3);
   $all_categories = find_all('categories');
-  $all_photo = find_all('media');
+  $all_photo = find_by_idUser('media');
   
 ?>
 <?php

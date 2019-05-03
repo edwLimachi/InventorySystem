@@ -179,13 +179,16 @@ class  Media {
 /* Function for insert media image
 /*--------------------------------------------------------------*/
   private function insert_media(){
+        
+         if(isset($_SESSION['user_id'] )) $user_id =strtoupper($_SESSION['user_id'] ); else $user_id="";
 
          global $db;
-         $sql  = "INSERT INTO media ( file_name,file_type )";
+         $sql  = "INSERT INTO media ( file_name,file_type,user_id )";
          $sql .=" VALUES ";
          $sql .="(
                   '{$db->escape($this->fileName)}',
-                  '{$db->escape($this->fileType)}'
+                  '{$db->escape($this->fileType)}',
+                  '{$db->escape($user_id)}'                  
                   )";
        return ($db->query($sql) ? true : false);
 

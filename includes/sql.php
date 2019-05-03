@@ -1,6 +1,18 @@
 <?php
   require_once('includes/load.php');
 
+  /*--------------------------------------------------------------*/
+  /* Fuction for find all database tables rows of table media
+  /*--------------------------------------------------------------*/
+  function find_by_idUser($table) {
+     if(isset($_SESSION['user_id'] )) $user_id =strtoupper($_SESSION['user_id'] ); else $user_id="";
+     global $db;
+     if(tableExists($table))
+     {       
+       return find_by_sql("SELECT * FROM {$db->escape($table)} WHERE user_id='{$db->escape($user_id)}'");  
+       //$sql = $db->query("SELECT * FROM {$db->escape($table)} WHERE id='{$db->escape($id)}' LIMIT 1");
+     }
+  }
 /*--------------------------------------------------------------*/
 /* Function for find all database table rows by table name
 /*--------------------------------------------------------------*/
