@@ -95,13 +95,12 @@
                       <input type="text" class="form-control" name="product-location" placeholder="Ubicación">
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                       <i class="glyphicon glyphicon-th-large"></i>
-                      </span>
-                      <input type="text" class="form-control" name="product-state" placeholder="Estado">
-                    </div>
+                  <div class="col-md-6">                    
+                    <select class="form-control" name="product-state">
+                      <option value="">Selecciona el estado</option>                    
+                      <option value="1">Operativo</option>
+                      <option value="0">No Operativo</option>                    
+                    </select>
                   </div>
                 </div>
               </div>
