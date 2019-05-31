@@ -5,11 +5,13 @@
    page_require_level(3);
 ?>
 <?php
+  $user = current_user();
 
   if(isset($_POST['add_sale'])){
     $req_fields = array('s_id','quantity','price','total', 'date' );
     validate_fields($req_fields);
         if(empty($errors)){
+          $p_name    = $db->escape($_POST['s_name']);
           $p_id      = $db->escape((int)$_POST['s_id']);
           $s_qty     = $db->escape((int)$_POST['quantity']);
           $s_total   = $db->escape($_POST['total']);
@@ -22,14 +24,25 @@
           $sql .= "'{$p_id}','{$s_qty}','{$s_total}','{$s_date}'";
           $sql .= ")";
 
-                if($db->query($sql)){
-                  update_product_qty($s_qty,$p_id);
-                  $session->msg('s',"Venta agregada ");
-                  redirect('add_sale.php', false);
-                } else {
-                  $session->msg('d','Lo siento, registro falló.');
-                  redirect('add_sale.php', false);
-                }
+          if($db->query($sql)){
+            update_product_qty($s_qty,$p_id);
+            $session->msg('s',"Venta agregada ");
+
+            $user_name  = remove_junk(ucfirst($user['name']));       
+            $query2  = "INSERT INTO tracing (";
+            $query2 .=" user,operation,operation_name,product_name,field,date";
+            $query2 .=") VALUES (";
+            $query2 .=" '{$user_name}','agrego','venta','','',''";
+            $query2 .=")";
+            $query2 .=" ON DUPLICATE KEY UPDATE user='{$user_name}'";      
+            $db->query($query2);
+
+            redirect('sales.php', false);
+          } else {
+            $session->msg('d','Lo siento, registro falló.');
+            redirect('add_sale.php', false);
+          }
+
         } else {
            $session->msg("d", $errors);
            redirect('add_sale.php',false);

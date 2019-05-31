@@ -181,6 +181,7 @@ class  Media {
   private function insert_media(){
         
          if(isset($_SESSION['user_id'] )) $user_id =strtoupper($_SESSION['user_id'] ); else $user_id="";
+         $user = current_user();
 
          global $db;
          $sql  = "INSERT INTO media ( file_name,file_type,user_id )";
@@ -190,6 +191,18 @@ class  Media {
                   '{$db->escape($this->fileType)}',
                   '{$db->escape($user_id)}'                  
                   )";
+
+          $p_name  = remove_junk($db->escape($this->fileName));          
+          $user_name  = remove_junk(ucfirst($user['name']));       
+          $date    = make_date();
+          $query2  = "INSERT INTO tracing (";
+          $query2 .=" user,operation,operation_name,product_name,field,date";
+          $query2 .=") VALUES (";
+          $query2 .=" '{$user_name}','agrego','imagen','{$p_name}','','{$date}'";
+          $query2 .=")";
+          $query2 .=" ON DUPLICATE KEY UPDATE user='{$user_name}'";      
+          $db->query($query2);
+
        return ($db->query($sql) ? true : false);
 
   }

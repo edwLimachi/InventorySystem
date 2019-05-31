@@ -7,13 +7,16 @@
   page_require_level(3);
   
 ?>
-<?php $media_files = find_by_idUser('media');?>
+<?php 
+  $media_files = find_by_idUser('media');  
+?>
 <?php
   if(isset($_POST['submit'])) {
   $photo = new Media();
   $photo->upload($_FILES['file_upload']);
     if($photo->process_media()){
-        $session->msg('s','Imagen subida al servidor.');
+        $session->msg('s','Imagen subida al servidor.');        
+
         redirect('media.php');
     } else{
       $session->msg('d',join($photo->errors));

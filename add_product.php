@@ -5,6 +5,7 @@
   page_require_level(3);
   $all_categories = find_all('categories');
   $all_photo = find_by_idUser('media');
+  $user = current_user();
   
 ?>
 <?php
@@ -32,8 +33,19 @@
      $query .=")";
      $query .=" ON DUPLICATE KEY UPDATE name='{$p_name}'";
      if($db->query($query)){
-       $session->msg('s',"Producto agregado exitosamente. ");
-       redirect('product.php', false);
+       $session->msg('s',"Producto agregado exitosamente. ");              
+
+       $user_name  = remove_junk(ucfirst($user['name']));       
+       $query2  = "INSERT INTO tracing (";
+       $query2 .=" user,operation,operation_name,product_name,field,date";
+       $query2 .=") VALUES (";
+       $query2 .=" '{$user_name}','agrego','producto','{$p_name}','','{$date}'";
+       $query2 .=")";
+       $query2 .=" ON DUPLICATE KEY UPDATE user='{$user_name}'";      
+       $db->query($query2);
+
+       redirect('product.php', false);     
+
      } else {
        $session->msg('d',' Lo siento, registro falló.');
        redirect('add_product.php', false);

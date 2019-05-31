@@ -9,6 +9,9 @@
 $product = find_by_id('products',(int)$_GET['id']);
 $all_categories = find_all('categories');
 $all_photo = find_all('media');
+
+$user = current_user();
+
 if(!$product){
   $session->msg("d","Missing product id.");
   redirect('product.php');
@@ -37,6 +40,18 @@ if(!$product){
        $result = $db->query($query);
                if($result && $db->affected_rows() === 1){
                  $session->msg('s',"Producto ha sido actualizado. ");
+                 
+                 $user_name  = remove_junk(ucfirst($user['name']));       
+                 $date    = make_date();
+                 $query2  = "INSERT INTO tracing (";
+                 $query2 .=" user,operation,operation_name,product_name,field,date";
+                 $query2 .=") VALUES (";
+                 $query2 .=" '{$user_name}','actualizo','producto','{$p_name}','','{$date}'";
+                 $query2 .=")";
+                 $query2 .=" ON DUPLICATE KEY UPDATE user='{$user_name}'";      
+                 $db->query($query2);
+
+
                  redirect('product.php', false);
                } else {
                  $session->msg('d',' Lo siento, actualización falló.');
