@@ -17,6 +17,6 @@
   // define( 'DB_PASS', '123456' );             // Set database password
   define( 'DB_USER', 'root' );             // Set database user
   define( 'DB_PASS', '' );             // Set database password
-  define( 'DB_NAME', 'oswa_inv' );        // Set database name
+  define( 'DB_NAME', 'joch_inv' );        // Set database name
 
 ?>
