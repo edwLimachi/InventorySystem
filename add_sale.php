@@ -10,8 +10,7 @@
   if(isset($_POST['add_sale'])){
     $req_fields = array('s_id','quantity','price','total', 'date' );
     validate_fields($req_fields);
-        if(empty($errors)){
-          $p_name    = $db->escape($_POST['s_name']);
+        if(empty($errors)){          
           $p_id      = $db->escape((int)$_POST['s_id']);
           $s_qty     = $db->escape((int)$_POST['quantity']);
           $s_total   = $db->escape($_POST['total']);
@@ -28,11 +27,14 @@
             update_product_qty($s_qty,$p_id);
             $session->msg('s',"Venta agregada ");
 
+            $table='products';
+            $product=find_by_id($table,$p_id);
+            $p_name=$product['name'];
             $user_name  = remove_junk(ucfirst($user['name']));       
             $query2  = "INSERT INTO tracing (";
-            $query2 .=" user,operation,operation_name,product_name,field,date";
+            $query2 .=" user,operation,operation_name,product_name,date";
             $query2 .=") VALUES (";
-            $query2 .=" '{$user_name}','agrego','venta','','',''";
+            $query2 .=" '{$user_name}','agrego','venta','{$p_name}','{$s_date}'";
             $query2 .=")";
             $query2 .=" ON DUPLICATE KEY UPDATE user='{$user_name}'";      
             $db->query($query2);

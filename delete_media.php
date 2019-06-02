@@ -15,9 +15,9 @@
       $user_name  = remove_junk(ucfirst($user['name']));       
       $date    = make_date();
       $query2  = "INSERT INTO tracing (";
-      $query2 .=" user,operation,operation_name,product_name,field,date";
+      $query2 .=" user,operation,operation_name,product_name,date";
       $query2 .=") VALUES (";
-      $query2 .=" '{$user_name}','elimino','imagen','{$p_name}','','{$date}'";
+      $query2 .=" '{$user_name}','elimino','imagen','{$p_name}','{$date}'";
       $query2 .=")";
       $query2 .=" ON DUPLICATE KEY UPDATE user='{$user_name}'";      
       $db->query($query2);

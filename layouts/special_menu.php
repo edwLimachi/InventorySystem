@@ -16,6 +16,12 @@
    </ul>
   </li>
   <li>
+    <a href="tracing.php" >
+      <i class="glyphicon glyphicon-eye-open"></i>
+      <span>Seguimiento</span>
+    </a>
+  </li>
+  <li>
     <a href="categorie.php" >
       <i class="glyphicon glyphicon-indent-left"></i>
       <span>Categorías</span>

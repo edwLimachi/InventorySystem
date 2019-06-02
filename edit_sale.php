@@ -5,6 +5,7 @@
    page_require_level(3);
 ?>
 <?php
+$user = current_user();
 $sale = find_by_id('sales',(int)$_GET['id']);
 if(!$sale){
   $session->msg("d","Missing product id.");
@@ -18,6 +19,7 @@ if(!$sale){
     $req_fields = array('title','quantity','price','total', 'date' );
     validate_fields($req_fields);
         if(empty($errors)){
+          $p_name    = $db->escape($_POST['title']);
           $p_id      = $db->escape((int)$product['id']);
           $s_qty     = $db->escape((int)$_POST['quantity']);
           $s_total   = $db->escape($_POST['total']);
@@ -31,6 +33,17 @@ if(!$sale){
           if( $result && $db->affected_rows() === 1){
                     update_product_qty($s_qty,$p_id);
                     $session->msg('s',"Sale updated.");
+
+                    $user_name  = remove_junk(ucfirst($user['name']));       
+                    $date    = make_date();
+                    $query2  = "INSERT INTO tracing (";
+                    $query2 .=" user,operation,operation_name,product_name,date";
+                    $query2 .=") VALUES (";
+                    $query2 .=" '{$user_name}','actualizo','venta','{$p_name}','{$date}'";
+                    $query2 .=")";
+                    $query2 .=" ON DUPLICATE KEY UPDATE user='{$user_name}'";      
+                    $db->query($query2);
+
                     redirect('edit_sale.php?id='.$sale['id'], false);
                   } else {
                     $session->msg('d',' Sorry failed to updated!');

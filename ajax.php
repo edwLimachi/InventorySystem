@@ -35,11 +35,8 @@
         foreach ($results as $result) {
 
           $html .= "<tr>";
-
-          // $html .= "<td id=\"s_name\">".$result['name']."</td>";
-          $html  .= "<td>";
-          $html .= "<input type=\"text\" disabled class=\"form-control\" id=\"s_name\" name=\"s_name\" value=\"{$result['name']}\">";
-          $html  .= "</td>";
+          
+          $html .= "<td id=\"s_name\">".$result['name']."</td>";
           $html .= "<input type=\"hidden\" name=\"s_id\" value=\"{$result['id']}\">";
           $html  .= "<td>";
           $html  .= "<input type=\"text\" class=\"form-control\" name=\"price\" value=\"{$result['sale_price']}\">";
